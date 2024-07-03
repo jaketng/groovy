@@ -1,10 +1,13 @@
+import Navbar from "./components/Navbar.jsx";
+import AppRoutes from "./routes/Routes.jsx";
 
-function App() {
+const App = () => {
   return (
     <>
-      <h1>Hello World</h1>
+      <Navbar />
+      <AppRoutes />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
