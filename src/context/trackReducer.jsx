@@ -1,4 +1,4 @@
-export const ACTIONS = {
+const ACTIONS = {
   ADD_LIKED_TRACK: "ADD_LIKED_TRACK",
   REMOVE_LIKED_TRACK: "REMOVE_LIKED_TRACK",
   SET_CURRENT_TRACK: "SET_CURRENT_TRACK",
@@ -7,7 +7,7 @@ export const ACTIONS = {
 const trackReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.ADD_LIKED_TRACK:
-      return { ...state, likedTacks: [...state.likedTacks, action.payload] };
+      return { ...state, likedTracks: [...state.likedTracks, action.payload] };
     case ACTIONS.REMOVE_LIKED_TRACK:
       return {
         ...state,
@@ -21,8 +21,8 @@ const trackReducer = (state, action) => {
         currentTrack: action.payload.track,
       };
     default:
-      state;
+      return state;
   }
 };
 
-export default trackReducer;
+export { trackReducer, ACTIONS };
