@@ -1,7 +1,9 @@
-const TrackCard = ({ trackName }) => {
+const TrackCard = ({ track, handleLike, handlePass }) => {
   return (
     <>
-      <h2>{trackName}</h2>
+      <h2>{track.name}</h2>
+      <button onClick={handleLike}>LIKE</button>
+      <button onClick={handlePass}>PASS</button>
     </>
   );
 };
