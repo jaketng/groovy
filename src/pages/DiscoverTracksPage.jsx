@@ -1,23 +1,19 @@
 import TrackInput from "../components/TrackInput";
-import { tracks } from "../utils/mockData.js";
+import { tracks as mockData } from "../utils/mockData.js";
 import TrackCard from "../components/TrackCard.jsx";
 import { useState, useEffect } from "react";
 import { useTrack } from "../context/TrackContext.jsx";
 
 const DiscoverTracks = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const { addLikedTrack } = useTrack();
-
-  useEffect(() => {
-    tracks.forEach((track) => {
-      track.isInLikedTracks = false;
-    });
-  }, []);
+  const [tracks, setTracks] = useState(mockData);
+  const { addLikedTrack, state } = useTrack();
+  const likedTracks = state.likedTracks.map((track) => track.id);
 
   const currentTrack = tracks[currentTrackIndex];
 
   const handleLike = () => {
-    if (currentTrack && !currentTrack.isInLikedTracks) {
+    if (currentTrack && !likedTracks.includes(currentTrack.id)) {
       currentTrack.isInLikedTracks = true;
       addLikedTrack(currentTrack);
     } else {
@@ -35,11 +31,11 @@ const DiscoverTracks = () => {
       <h1>Discover Tracks</h1>
       <TrackInput />
       {currentTrack ? (
-        <TrackCard
-          track={currentTrack}
-          handleLike={handleLike}
-          handlePass={handlePass}
-        />
+        <>
+          <TrackCard track={currentTrack} />
+          <button onClick={handleLike}>LIKE</button>
+          <button onClick={handlePass}>PASS</button>
+        </>
       ) : (
         <p>No more tracks!</p>
       )}

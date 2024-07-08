@@ -1,5 +1,20 @@
+import { useTrack } from "../context/TrackContext.jsx";
+import TrackCard from "../components/TrackCard.jsx";
+
 const LikedTracksPage = () => {
-  return <h1>Liked Tracks Page</h1>;
+  const { state } = useTrack();
+  const likedTracks = state.likedTracks || [];
+
+  return (
+    <>
+      <h1>Liked Tracks</h1>
+      {likedTracks.length > 0 ? (
+        likedTracks.map((track) => <TrackCard key={track.id} track={track} />)
+      ) : (
+        <p>No liked tracks!</p>
+      )}
+    </>
+  );
 };
 
 export default LikedTracksPage;
