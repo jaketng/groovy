@@ -13,6 +13,7 @@ const AudioControls = ({ currentTrack, setCurrentTrack, track }) => {
       }
     } else {
       audioRef.current.pause();
+      audioRef.current.currentTime = 0;
       setIsPlaying(false);
     }
   }, [currentTrack, isPlaying, track.id]);
