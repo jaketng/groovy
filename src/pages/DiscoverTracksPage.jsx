@@ -41,6 +41,14 @@ const DiscoverTracks = () => {
     setCurrentTrackIndex((prevIndex) => prevIndex + 1);
   };
 
+  const handleGoBack = () => {
+    if (currentTrackIndex === 0) {
+      alert("Can't go further back");
+    } else {
+      setCurrentTrackIndex((prevIndex) => prevIndex - 1);
+    }
+  };
+
   return (
     <>
       <h1>Discover Tracks</h1>
@@ -52,6 +60,7 @@ const DiscoverTracks = () => {
           <TrackCard track={currentTrack} currentTrack={currentTrack} />
           <button onClick={handlePass}>PASS</button>
           <button onClick={handleLike}>LIKE</button>
+          <button onClick={handleGoBack}>GO BACK</button>
         </>
       ) : (
         <p>No more tracks!</p>
