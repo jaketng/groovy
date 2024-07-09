@@ -1,20 +1,35 @@
 import TrackInput from "../components/TrackInput";
 import { tracks as mockData } from "../utils/mockData.js";
 import TrackCard from "../components/TrackCard.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTrack } from "../context/TrackContext.jsx";
 import AudioControls from "../components/AudioControls.jsx";
 
 const DiscoverTracks = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [tracks, setTracks] = useState(mockData);
+  const [currentTrack, setCurrentTrack] = useState([]);
   const { addLikedTrack, state } = useTrack();
   const likedTracks = state.likedTracks.map((track) => track.id);
-  const currentTrack = tracks[currentTrackIndex];
+
+  useEffect(() => {
+    if (tracks.length > 0) {
+      setCurrentTrack(tracks[currentTrackIndex]);
+    } else {
+      setCurrentTrack(null);
+    }
+  }, [currentTrackIndex, tracks]);
+
+  useEffect(() => {
+    const filteredTracks = mockData.filter(
+      (track) =>
+        !state.likedTracks.some((likedTrack) => likedTrack.id === track.id)
+    );
+    setTracks(filteredTracks);
+  }, []);
 
   const handleLike = () => {
     if (currentTrack && !likedTracks.includes(currentTrack.id)) {
-      currentTrack.isInLikedTracks = true;
       addLikedTrack(currentTrack);
     } else {
       alert("Track already liked");
@@ -30,8 +45,10 @@ const DiscoverTracks = () => {
     <>
       <h1>Discover Tracks</h1>
       <TrackInput />
-      {currentTrack ? (
+      {currentTrack && tracks ? (
         <>
+          {console.log(currentTrackIndex)}
+          {console.log(tracks)}
           <TrackCard track={currentTrack} />
           <button onClick={handlePass}>PASS</button>
           <button onClick={handleLike}>LIKE</button>

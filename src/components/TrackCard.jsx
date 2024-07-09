@@ -1,4 +1,4 @@
-const TrackCard = ({ track, handleLike, handlePass }) => {
+const TrackCard = ({ track }) => {
   return (
     <>
       <h2>{track.name}</h2>
