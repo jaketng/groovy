@@ -30,10 +30,10 @@ const DiscoverTracks = () => {
   const handleLike = () => {
     if (currentTrack && !likedTracks.includes(currentTrack.id)) {
       addLikedTrack(currentTrack);
+      setCurrentTrackIndex((prevIndex) => prevIndex + 1);
     } else {
       alert("Track already liked");
     }
-    setCurrentTrackIndex((prevIndex) => prevIndex + 1);
   };
 
   const handlePass = () => {
