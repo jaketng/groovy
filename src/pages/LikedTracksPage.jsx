@@ -21,13 +21,12 @@ const LikedTracksPage = () => {
       {likedTracks.length > 0 ? (
         likedTracks.map((track) => (
           <div key={track.id}>
-            <TrackCard track={track} />
-            <button onClick={() => handleRemove(track.id)}>REMOVE</button>
-            <AudioControls
+            <TrackCard
               currentTrack={currentTrack}
               setCurrentTrack={setCurrentTrack}
               track={track}
             />
+            <button onClick={() => handleRemove(track.id)}>REMOVE</button>
           </div>
         ))
       ) : (
