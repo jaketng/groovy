@@ -1,13 +1,18 @@
 import { useTrack } from "../context/TrackContext.jsx";
 import TrackCard from "../components/TrackCard.jsx";
 import AudioControls from "../components/AudioControls.jsx";
+import { useState } from "react";
 
 const LikedTracksPage = () => {
   const { state, removeLikedTrack } = useTrack();
   const likedTracks = state.likedTracks || [];
+  const [currentTrack, setCurrentTrack] = useState(null);
 
   const handleRemove = (trackId) => {
     removeLikedTrack(trackId);
+    if (currentTrack?.id === trackId) {
+      setCurrentTrack(null);
+    }
   };
 
   return (
@@ -18,7 +23,11 @@ const LikedTracksPage = () => {
           <div key={track.id}>
             <TrackCard track={track} />
             <button onClick={() => handleRemove(track.id)}>REMOVE</button>
-            <AudioControls currentTrack={track} />
+            <AudioControls
+              currentTrack={currentTrack}
+              setCurrentTrack={setCurrentTrack}
+              track={track}
+            />
           </div>
         ))
       ) : (

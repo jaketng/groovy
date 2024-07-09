@@ -35,7 +35,7 @@ const DiscoverTracks = () => {
           <TrackCard track={currentTrack} />
           <button onClick={handlePass}>PASS</button>
           <button onClick={handleLike}>LIKE</button>
-          <AudioControls currentTrack={currentTrack} />
+          <AudioControls currentTrack={currentTrack} track={currentTrack} />
         </>
       ) : (
         <p>No more tracks!</p>
