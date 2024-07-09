@@ -3,12 +3,11 @@ import { tracks as mockData } from "../utils/mockData.js";
 import TrackCard from "../components/TrackCard.jsx";
 import { useEffect, useState } from "react";
 import { useTrack } from "../context/TrackContext.jsx";
-import AudioControls from "../components/AudioControls.jsx";
 
 const DiscoverTracks = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [tracks, setTracks] = useState(mockData);
-  const [currentTrack, setCurrentTrack] = useState([]);
+  const [currentTrack, setCurrentTrack] = useState(null);
   const { addLikedTrack, state } = useTrack();
   const likedTracks = state.likedTracks.map((track) => track.id);
 
@@ -53,17 +52,24 @@ const DiscoverTracks = () => {
     <>
       <h1>Discover Tracks</h1>
       <TrackInput />
-      {currentTrack && tracks ? (
+      {currentTrack ? (
         <>
           {console.log(currentTrackIndex)}
           {console.log(tracks)}
           <TrackCard track={currentTrack} currentTrack={currentTrack} />
           <button onClick={handlePass}>PASS</button>
           <button onClick={handleLike}>LIKE</button>
-          <button onClick={handleGoBack}>GO BACK</button>
+          {currentTrackIndex > 0 && (
+            <button onClick={handleGoBack}>GO BACK</button>
+          )}
         </>
       ) : (
-        <p>No more tracks!</p>
+        <>
+          <p>No more tracks!</p>
+          {currentTrackIndex > 0 && (
+            <button onClick={handleGoBack}>GO BACK</button>
+          )}
+        </>
       )}
     </>
   );

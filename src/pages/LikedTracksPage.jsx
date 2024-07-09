@@ -1,6 +1,5 @@
 import { useTrack } from "../context/TrackContext.jsx";
 import TrackCard from "../components/TrackCard.jsx";
-import AudioControls from "../components/AudioControls.jsx";
 import { useState } from "react";
 
 const LikedTracksPage = () => {
