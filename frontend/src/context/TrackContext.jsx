@@ -1,4 +1,4 @@
-import React, { useEffect, createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { trackReducer, ACTIONS } from "./trackReducer";
 
 const TrackContext = createContext();
@@ -6,19 +6,11 @@ const TrackContext = createContext();
 const initialState = {
   likedTracks: [],
   currentTrack: null,
-  recommendedTracks:
-    JSON.parse(localStorage.getItem("recommendedTracks")) || [],
+  recommendedTracks: [],
 };
 
 const TrackProvider = ({ children }) => {
   const [state, dispatch] = useReducer(trackReducer, initialState);
-
-  useEffect(() => {
-    localStorage.setItem(
-      "recommendedTracks",
-      JSON.stringify(state.recommendedTracks)
-    );
-  }, [state.recommendedTracks]);
 
   const addLikedTrack = (track) => {
     dispatch({ type: ACTIONS.ADD_LIKED_TRACK, payload: track });
@@ -29,7 +21,7 @@ const TrackProvider = ({ children }) => {
   };
 
   const setRecommendedTracks = (tracks) => {
-    dispatch({ type: "SET_RECOMMENDED_TRACKS", payload: tracks });
+    dispatch({ type: ACTIONS.SET_RECOMMENDED_TRACKS, payload: tracks });
   };
 
   const updateCurrentTrack = (track) => {

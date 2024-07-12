@@ -2,6 +2,7 @@ const ACTIONS = {
   ADD_LIKED_TRACK: "ADD_LIKED_TRACK",
   REMOVE_LIKED_TRACK: "REMOVE_LIKED_TRACK",
   SET_CURRENT_TRACK: "SET_CURRENT_TRACK",
+  SET_RECOMMENDED_TRACKS: "SET_RECOMMENDED_TRCKS",
 };
 
 const trackReducer = (state, action) => {
@@ -20,7 +21,7 @@ const trackReducer = (state, action) => {
         ...state,
         currentTrack: action.payload.track,
       };
-    case "SET_RECOMMENDED_TRACKS":
+    case ACTIONS.SET_RECOMMENDED_TRACKS:
       return {
         ...state,
         recommendedTracks: action.payload,

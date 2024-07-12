@@ -22,7 +22,7 @@ const DiscoverTracks = () => {
       (track) => !likedTracks.some((likedTrack) => likedTrack.id === track.id)
     );
     setRecommendedTracks(filteredTracks);
-  }, [likedTracks, setRecommendedTracks, recommendedTracks]);
+  }, [likedTracks]);
 
   const handleLike = () => {
     if (currentTrack && !likedTracks.includes(currentTrack.id)) {
