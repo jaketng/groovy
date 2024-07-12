@@ -21,7 +21,10 @@ const TrackInput = () => {
     } else {
       console.log(trackId);
       const recommendedTracks = await getTracks(trackId);
-      setRecommendedTracks(recommendedTracks);
+      const recommendedTracks_withPreview = recommendedTracks.filter(
+        (track) => track.preview_url !== null
+      );
+      setRecommendedTracks(recommendedTracks_withPreview);
       navigate("/discover-tracks", { state: { recommendedTracks } });
     }
   };
