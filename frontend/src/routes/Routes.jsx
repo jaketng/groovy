@@ -8,7 +8,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path={"/"} element={<InputTrackPage />} />
-      <Route path={"/login"} element={<SpotifyLoginPage />} />
+      {<Route path={"/login"} element={<SpotifyLoginPage />} />}
       <Route path={"/discover-tracks"} element={<DisoverTracksPage />} />
       <Route path={"/liked-tracks"} element={<LikedTracksPage />} />
     </Routes>

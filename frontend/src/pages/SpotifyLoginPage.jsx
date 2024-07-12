@@ -1,6 +1,6 @@
 const SpotifyLoginPage = () => {
   const handleSpotifyLogin = () => {
-    window.location.href = "http://localhost:5173/spotify/login";
+    window.location.href = "http://localhost:8888/login";
   };
 
   return (
