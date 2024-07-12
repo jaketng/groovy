@@ -24,7 +24,7 @@ const DiscoverTracks = () => {
         !likedTracks.some((likedTrack) => likedTrack.id === track.id)
     );
     setRecommendedTracks(filteredTracks);
-  }, [likedTracks]);
+  }, []);
 
   const handleLike = () => {
     if (currentTrack && !likedTracks.includes(currentTrack.id)) {
@@ -51,6 +51,8 @@ const DiscoverTracks = () => {
     <>
       <h1>Discover Tracks</h1>
       <TrackInput />
+      {console.log(currentTrackIndex)}
+      {console.log(recommendedTracks)}
       {currentTrack ? (
         <>
           <TrackCard track={currentTrack} currentTrack={currentTrack} />

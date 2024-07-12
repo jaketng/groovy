@@ -7,7 +7,9 @@ const AudioControls = ({ currentTrack, setCurrentTrack, track }) => {
   useEffect(() => {
     if (track.id === currentTrack?.id) {
       if (isPlaying) {
-        audioRef.current.play();
+        audioRef.current.play().catch(() => {
+          setIsPlaying(true);
+        });
       } else {
         audioRef.current.pause();
       }
