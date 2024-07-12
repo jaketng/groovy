@@ -19,7 +19,9 @@ const DiscoverTracks = () => {
 
   useEffect(() => {
     const filteredTracks = recommendedTracks.filter(
-      (track) => !likedTracks.some((likedTrack) => likedTrack.id === track.id)
+      (track) =>
+        track.preview_url &&
+        !likedTracks.some((likedTrack) => likedTrack.id === track.id)
     );
     setRecommendedTracks(filteredTracks);
   }, [likedTracks]);
