@@ -20,6 +20,11 @@ const trackReducer = (state, action) => {
         ...state,
         currentTrack: action.payload.track,
       };
+    case "SET_RECOMMENDED_TRACKS":
+      return {
+        ...state,
+        recommendedTracks: action.payload,
+      };
     default:
       return state;
   }

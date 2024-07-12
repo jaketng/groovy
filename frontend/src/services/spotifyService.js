@@ -139,7 +139,7 @@ axios.defaults.headers["Content-Type"] = "application/json";
 
 /**
  * Get recommended tracks
- * https://developer.spotify.com/documentation/web-api/reference/#endpoint-
+ * https://developer.spotify.com/documentation/web-api/reference/get-recommendations
  * @returns {Promise}
  */
 export const getTracks = async (seedTrackId) => {

@@ -2,31 +2,27 @@ import TrackInput from "../components/TrackInput";
 import TrackCard from "../components/TrackCard.jsx";
 import { useEffect, useState } from "react";
 import { useTrack } from "../context/TrackContext.jsx";
-import { useLocation } from "react-router-dom";
 
 const DiscoverTracks = () => {
-  const location = useLocation();
-  const recommendedTracks = location.state?.recommendedTracks || [];
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [tracks, setTracks] = useState(recommendedTracks);
+  const { state, addLikedTrack, setRecommendedTracks } = useTrack();
+  const { recommendedTracks, likedTracks } = state;
   const [currentTrack, setCurrentTrack] = useState(null);
-  const { addLikedTrack, state } = useTrack();
-  const likedTracks = state.likedTracks.map((track) => track.id);
 
   useEffect(() => {
-    if (tracks.length > 0) {
-      setCurrentTrack(tracks[currentTrackIndex]);
+    if (recommendedTracks.length > 0) {
+      setCurrentTrack(recommendedTracks[currentTrackIndex]);
     } else {
       setCurrentTrack(null);
     }
-  }, [currentTrackIndex, tracks]);
+  }, [currentTrackIndex, recommendedTracks]);
 
   useEffect(() => {
     const filteredTracks = recommendedTracks.filter(
-      (track) => !likedTracks.includes(track.id)
+      (track) => !likedTracks.some((likedTrack) => likedTrack.id === track.id)
     );
-    setTracks(filteredTracks);
-  }, [recommendedTracks, likedTracks]);
+    setRecommendedTracks(filteredTracks);
+  }, [likedTracks, setRecommendedTracks, recommendedTracks]);
 
   const handleLike = () => {
     if (currentTrack && !likedTracks.includes(currentTrack.id)) {
@@ -55,8 +51,6 @@ const DiscoverTracks = () => {
       <TrackInput />
       {currentTrack ? (
         <>
-          {console.log(currentTrackIndex)}
-          {console.log(tracks)}
           <TrackCard track={currentTrack} currentTrack={currentTrack} />
           <button onClick={handlePass}>PASS</button>
           <button onClick={handleLike}>LIKE</button>

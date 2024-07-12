@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTracks } from "../services/spotifyService.js";
+import { useTrack } from "../context/TrackContext.jsx";
 
 const extractTrackId = (url) => {
   const trackIdMatch = url.match(/track\/([a-zA-Z0-9]+)/);
@@ -10,6 +11,7 @@ const extractTrackId = (url) => {
 const TrackInput = () => {
   const [inputUrl, setInputUrl] = useState("");
   const navigate = useNavigate();
+  const { setRecommendedTracks } = useTrack();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,6 +21,7 @@ const TrackInput = () => {
     } else {
       console.log(trackId);
       const recommendedTracks = await getTracks(trackId);
+      setRecommendedTracks(recommendedTracks);
       navigate("/discover-tracks", { state: { recommendedTracks } });
     }
   };
