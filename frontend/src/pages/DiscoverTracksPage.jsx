@@ -1,12 +1,14 @@
 import TrackInput from "../components/TrackInput";
-import { tracks as mockData } from "../utils/mockData.js";
 import TrackCard from "../components/TrackCard.jsx";
 import { useEffect, useState } from "react";
 import { useTrack } from "../context/TrackContext.jsx";
+import { useLocation } from "react-router-dom";
 
 const DiscoverTracks = () => {
+  const location = useLocation();
+  const recommendedTracks = location.state?.recommendedTracks || [];
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [tracks, setTracks] = useState(mockData);
+  const [tracks, setTracks] = useState(recommendedTracks);
   const [currentTrack, setCurrentTrack] = useState(null);
   const { addLikedTrack, state } = useTrack();
   const likedTracks = state.likedTracks.map((track) => track.id);
@@ -20,12 +22,11 @@ const DiscoverTracks = () => {
   }, [currentTrackIndex, tracks]);
 
   useEffect(() => {
-    const filteredTracks = mockData.filter(
-      (track) =>
-        !state.likedTracks.some((likedTrack) => likedTrack.id === track.id)
+    const filteredTracks = recommendedTracks.filter(
+      (track) => !likedTracks.includes(track.id)
     );
     setTracks(filteredTracks);
-  }, []);
+  }, [recommendedTracks, likedTracks]);
 
   const handleLike = () => {
     if (currentTrack && !likedTracks.includes(currentTrack.id)) {

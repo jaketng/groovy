@@ -142,4 +142,17 @@ axios.defaults.headers["Content-Type"] = "application/json";
  * https://developer.spotify.com/documentation/web-api/reference/#endpoint-
  * @returns {Promise}
  */
-export const getTracks = () => axios.get("/");
+export const getTracks = async (seedTrackId) => {
+  try {
+    const response = await axios.get("/recommendations", {
+      params: {
+        limit: 100,
+        seed_tracks: seedTrackId,
+      },
+    });
+    return response.data.tracks;
+  } catch (error) {
+    console.error("Error fetching recommended tracks:", error);
+    return [];
+  }
+};

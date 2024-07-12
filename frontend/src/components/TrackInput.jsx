@@ -1,17 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getTracks } from "../services/spotifyService.js";
+
+const extractTrackId = (url) => {
+  const trackIdMatch = url.match(/track\/([a-zA-Z0-9]+)/);
+  return trackIdMatch ? trackIdMatch[1] : null;
+};
 
 const TrackInput = () => {
-  const [trackId, setTrackId] = useState("");
+  const [inputUrl, setInputUrl] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const trackId = extractTrackId(inputUrl);
     if (!trackId) {
-      alert("Not a valid URL");
+      alert("Not a valid Spotify track URL");
     } else {
       console.log(trackId);
-      navigate("/discover-tracks");
+      const recommendedTracks = await getTracks(trackId);
+      navigate("/discover-tracks", { state: { recommendedTracks } });
     }
   };
 
@@ -21,8 +29,9 @@ const TrackInput = () => {
         <input
           type="text"
           name="track-input"
-          value={trackId}
-          onChange={(event) => setTrackId(event.target.value)}
+          value={inputUrl}
+          onChange={(event) => setInputUrl(event.target.value)}
+          placeholder="Enter Spotify track URL"
         />
         <input type="submit" value="Find Songs!" />
       </form>
