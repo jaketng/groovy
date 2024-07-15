@@ -1,4 +1,5 @@
 import AudioControls from "./AudioControls";
+import WebPlayback from "./WebPlayback";
 
 const TrackCard = ({ track, currentTrack, setCurrentTrack }) => {
   const artistNames = track.artists.map((artist) => artist.name).join(", ");
@@ -11,6 +12,7 @@ const TrackCard = ({ track, currentTrack, setCurrentTrack }) => {
         currentTrack={currentTrack}
         setCurrentTrack={setCurrentTrack}
       />
+      <WebPlayback track={track} />
     </>
   );
 };
