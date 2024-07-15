@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTracks } from "../services/spotifyService.js";
+import { getRecsWithPreviewUrls } from "../services/spotifyService.js";
 import { useTrack } from "../context/TrackContext.jsx";
 
 const extractTrackId = (url) => {
@@ -20,7 +20,7 @@ const TrackInput = () => {
       alert("Not a valid Spotify track URL");
     } else {
       console.log(trackId);
-      const recommendedTracks = await getTracks(trackId);
+      const recommendedTracks = await getRecsWithPreviewUrls(trackId);
       const recommendedTracks_withPreview = recommendedTracks.filter(
         (track) => track.preview_url !== null
       );

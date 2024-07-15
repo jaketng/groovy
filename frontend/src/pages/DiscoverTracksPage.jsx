@@ -53,7 +53,11 @@ const DiscoverTracks = () => {
       {console.log(recommendedTracks)}
       {currentTrack ? (
         <>
-          <TrackCard track={currentTrack} currentTrack={currentTrack} />
+          <TrackCard
+            track={currentTrack}
+            currentTrack={currentTrack}
+            index={currentTrackIndex}
+          />
           <button onClick={handlePass}>PASS</button>
           <button onClick={handleLike}>LIKE</button>
           {currentTrackIndex > 0 && (

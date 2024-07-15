@@ -151,7 +151,7 @@ axios.defaults.headers["Content-Type"] = "application/json";
  * https://developer.spotify.com/documentation/web-api/reference/get-recommendations
  * @returns {Promise}
  */
-export const getTracks = async (seedTrackId) => {
+export const getRecommendations = async (seedTrackId) => {
   try {
     const response = await axios.get("/recommendations", {
       params: {
@@ -164,4 +164,39 @@ export const getTracks = async (seedTrackId) => {
     console.error("Error fetching recommended tracks:", error);
     return [];
   }
+};
+
+/**
+ * Get track details
+ * https://developer.spotify.com/documentation/web-api/reference/get-track
+ * @returns {Promise}
+ */
+export const getTrackDetails = async (trackId) => {
+  try {
+    const response = await axios.get(`/tracks/${trackId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching track details:", error);
+    return null;
+  }
+};
+
+/**
+ * Ensure all recommended tracks have preview URLs
+ * @returns {Promise}
+ */
+export const getRecsWithPreviewUrls = async (seedTrackId) => {
+  const recommendedTracks = await getRecommendations(seedTrackId);
+
+  const tracksWithPreviews = await Promise.all(
+    recommendedTracks.map(async (track) => {
+      if (!track.preview_url) {
+        const fullTrackDetails = await getTrackDetails(track.id);
+        return fullTrackDetails;
+      }
+      return track;
+    })
+  );
+
+  return tracksWithPreviews;
 };
