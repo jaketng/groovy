@@ -18,16 +18,20 @@ const LikedTracksPage = () => {
     <>
       <h1>Liked Tracks</h1>
       {likedTracks.length > 0 ? (
-        likedTracks.map((track) => (
-          <div key={track.id}>
-            <TrackCard
-              currentTrack={currentTrack}
-              setCurrentTrack={setCurrentTrack}
-              track={track}
-            />
-            <button onClick={() => handleRemove(track.id)}>REMOVE</button>
-          </div>
-        ))
+        // Iterate from the last index to the first
+        [...Array(likedTracks.length).keys()].reverse().map((index) => {
+          const track = likedTracks[index];
+          return (
+            <div key={track.id}>
+              <TrackCard
+                currentTrack={currentTrack}
+                setCurrentTrack={setCurrentTrack}
+                track={track}
+              />
+              <button onClick={() => handleRemove(track.id)}>REMOVE</button>
+            </div>
+          );
+        })
       ) : (
         <p>No liked tracks!</p>
       )}

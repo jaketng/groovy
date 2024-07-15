@@ -200,3 +200,50 @@ export const getRecsWithPreviewUrls = async (seedTrackId) => {
 
   return tracksWithPreviews;
 };
+
+/**
+ * Add track to user's library
+ * https://developer.spotify.com/documentation/web-api/reference/save-tracks-user/
+ * @param {string} trackId - The ID of the track to add
+ * @returns {Promise}
+ */
+export const addToLibrary = async (trackId) => {
+  try {
+    const response = await axios.put(
+      `https://api.spotify.com/v1/me/tracks?ids=${trackId}`,
+      null,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.status === 200;
+  } catch (error) {
+    console.error("Error adding track to library:", error);
+    return false;
+  }
+};
+
+/**
+ * Check if a track is in the user's library
+ * https://developer.spotify.com/documentation/web-api/reference/check-user-library-contains-tracks/
+ * @param {string} trackId - The ID of the track to check
+ * @returns {Promise<boolean>}
+ */
+export const checkTrackInLibrary = async (trackId) => {
+  try {
+    const response = await axios.get(
+      `https://api.spotify.com/v1/me/tracks/contains?ids=${trackId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data[0]; // true if the track is in the library, false otherwise
+  } catch (error) {
+    console.error("Error checking track in library:", error);
+    return false;
+  }
+};
