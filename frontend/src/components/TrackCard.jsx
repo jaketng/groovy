@@ -52,17 +52,16 @@ const TrackCard = ({
           )}
           <div>
             <div className="flex flex-row justify-between">
-              <div className="gap-2 flex flex-col w-5/6">
-                {/* Fix the overflow */}
-                <p className="card-title text-3xl whitespace-nowrap overflow-hidden mr-4">
+              <div className="gap-2 flex flex-col w-9/12">
+                <p className="text-2xl font-bold whitespace-nowrap overflow-hidden text-ellipsis mr-4">
                   {track.name}
                 </p>
-                <p className="text-xl whitespace-nowrap overflow-hidden">
+                <p className="text-xl whitespace-nowrap overflow-hidden text-ellipsis">
                   {artistNames}
                 </p>
               </div>
 
-              <div className="dropdown dropdown-right w-1/6">
+              <div className="dropdown dropdown-right">
                 <div
                   tabIndex={0}
                   role="button"
