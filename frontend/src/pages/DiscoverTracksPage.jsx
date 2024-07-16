@@ -46,9 +46,11 @@ const DiscoverTracks = () => {
   };
 
   return (
-    <>
-      <div className="m-auto">
+    <div className="flex justify-center border-2 gap-20">
+      <div className="">
         <TrackInput />
+      </div>
+      <div className="">
         {console.log(currentTrackIndex)}
         {console.log(recommendedTracks)}
         {currentTrack ? (
@@ -82,7 +84,7 @@ const DiscoverTracks = () => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

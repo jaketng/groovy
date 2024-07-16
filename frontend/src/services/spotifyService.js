@@ -247,3 +247,26 @@ export const checkTrackInLibrary = async (trackId) => {
     return false;
   }
 };
+
+/**
+ * Search for tracks
+ * https://developer.spotify.com/documentation/web-api/reference/get-search/
+ * @param {string} query - The search query
+ * @returns {Promise<object[]>} - An array of track objects
+ */
+export const getSearch = async (query) => {
+  try {
+    const response = await axios.get("/search", {
+      params: {
+        q: query,
+        type: "track",
+        limit: 20,
+      },
+    });
+    // Extract track items from the response
+    return response.data.tracks.items;
+  } catch (error) {
+    console.error("Error searching for tracks:", error);
+    return [];
+  }
+};

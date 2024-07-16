@@ -1,52 +1,79 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getRecsWithPreviewUrls } from "../services/spotifyService.js";
+import {
+  getSearch,
+  getRecsWithPreviewUrls,
+} from "../services/spotifyService.js";
 import { useTrack } from "../context/TrackContext.jsx";
 
-const extractTrackId = (url) => {
-  const trackIdMatch = url.match(/track\/([a-zA-Z0-9]+)/);
-  return trackIdMatch ? trackIdMatch[1] : null;
-};
-
 const TrackInput = () => {
-  const [inputUrl, setInputUrl] = useState("");
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const { setRecommendedTracks } = useTrack();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const trackId = extractTrackId(inputUrl);
-    if (!trackId) {
-      alert("Not a valid Spotify track URL");
-    } else {
-      console.log(trackId);
-      const recommendedTracks = await getRecsWithPreviewUrls(trackId);
-      const recommendedTracks_withPreview = recommendedTracks.filter(
-        (track) => track.preview_url !== null
-      );
-      setRecommendedTracks(recommendedTracks_withPreview);
-      navigate("/discover-tracks", { state: { recommendedTracks } });
-    }
+  useEffect(() => {
+    const fetchTracks = async () => {
+      if (!search) return setSearchResults([]);
+      const tracks = await getSearch(search);
+      setSearchResults(tracks);
+    };
+
+    fetchTracks();
+  }, [search]);
+
+  const handleTrackSelect = async (track) => {
+    const trackId = track.id;
+    const recommendedTracks = await getRecsWithPreviewUrls(trackId);
+    const recommendedTracks_withPreview = recommendedTracks.filter(
+      (track) => track.preview_url !== null
+    );
+    setRecommendedTracks(recommendedTracks_withPreview);
+    navigate("/discover-tracks", { state: { recommendedTracks } });
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className="gap-4 m-4 pt-16 flex">
+    <div className="flex flex-col items-center w-96 border-2">
+      <form className="w-full flex flex-col items-center gap-4">
         <input
-          type="text"
-          name="track-input"
-          value={inputUrl}
-          onChange={(event) => setInputUrl(event.target.value)}
-          placeholder="Enter Spotify track URL"
-          className="input input-bordered input-primary "
-        />
-        <input
-          className="btn btn-secondary"
-          type="submit"
-          value="Find Songs!"
+          type="search"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          placeholder="Search Tracks"
+          className="input input-bordered input-primary w-full"
         />
       </form>
-    </>
+      {search && (
+        <div className="search-results-container mt-2 w-full h-96 overflow-y-scroll">
+          {searchResults.length === 0 ? (
+            <p className="text-center text-gray-600 py-4">No tracks found</p>
+          ) : (
+            searchResults.map((track) => (
+              <div
+                key={track.id}
+                className="track-item flex items-center gap-2 cursor-pointer hover:bg-neutral rounded-md p-2 transition duration-300 ease-in-out"
+                onClick={() => handleTrackSelect(track)}
+              >
+                <img
+                  src={
+                    track.album?.images?.[0]?.url ||
+                    "https://via.placeholder.com/150"
+                  }
+                  alt={track.name}
+                  className="w-12 h-12 object-cover rounded-md"
+                />
+                <div className="flex-1 overflow-hidden">
+                  <p className="font-bold text-lg truncate">{track.name}</p>
+                  <p className="text-gray-600 text-sm truncate">
+                    {track.artists.map((artist) => artist.name).join(", ")}
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
