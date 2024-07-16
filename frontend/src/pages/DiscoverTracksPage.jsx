@@ -58,19 +58,13 @@ const DiscoverTracks = () => {
               currentTrack={currentTrack}
               handleLike={handleLike}
               handlePass={handlePass}
+              currentTrackIndex={currentTrackIndex}
+              handleGoBack={handleGoBack}
             />
-            {/* <button onClick={handlePass}>PASS</button>
-          <button onClick={handleLike}>LIKE</button> */}
-            {currentTrackIndex > 0 && (
-              <button onClick={handleGoBack}>GO BACK</button>
-            )}
           </>
         ) : (
           <>
             <p>No more tracks!</p>
-            {currentTrackIndex > 0 && (
-              <button onClick={handleGoBack}>GO BACK</button>
-            )}
           </>
         )}
       </div>
