@@ -3,7 +3,9 @@ import TrackInput from "../components/TrackInput.jsx";
 const InputTrackPage = () => {
   return (
     <>
-      <TrackInput />
+      <div className="m-auto">
+        <TrackInput />
+      </div>
     </>
   );
 };

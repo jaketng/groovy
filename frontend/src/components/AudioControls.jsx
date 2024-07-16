@@ -38,7 +38,7 @@ const AudioControls = ({ currentTrack, setCurrentTrack, track }) => {
         {isPlaying ? (
           // pause button
           <svg
-            className="swap-on h-10 fill-current"
+            className="swap-on h-10 fill-neutral"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 320 512"
           >
@@ -47,7 +47,7 @@ const AudioControls = ({ currentTrack, setCurrentTrack, track }) => {
         ) : (
           // play button
           <svg
-            className="swap-off h-10 w-10 fill-current"
+            className="swap-off h-10 w-10 fill-neutral"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 320 512"
           >

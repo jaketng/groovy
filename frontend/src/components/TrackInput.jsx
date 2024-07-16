@@ -31,7 +31,7 @@ const TrackInput = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="gap-4 m-4 flex">
+      <form onSubmit={handleSubmit} className="gap-4 m-4 pt-16 flex">
         <input
           type="text"
           name="track-input"

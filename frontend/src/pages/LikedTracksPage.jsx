@@ -1,5 +1,6 @@
 import { useTrack } from "../context/TrackContext.jsx";
 import TrackCard from "../components/TrackCard.jsx";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const LikedTracksPage = () => {
@@ -16,7 +17,6 @@ const LikedTracksPage = () => {
 
   return (
     <>
-      <h1>Liked Tracks</h1>
       {likedTracks.length > 0 ? (
         // Iterate from the last index to the first
         [...Array(likedTracks.length).keys()].reverse().map((index) => {
@@ -33,7 +33,12 @@ const LikedTracksPage = () => {
           );
         })
       ) : (
-        <p>No liked tracks!</p>
+        <div className="flex flex-col m-auto pt-20">
+          <p className="text-3xl">You have no liked tracks!</p>
+          <Link to="/" className="btn btn-link">
+            Find New Tracks Here
+          </Link>
+        </div>
       )}
     </>
   );

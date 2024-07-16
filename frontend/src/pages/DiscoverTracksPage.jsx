@@ -64,7 +64,15 @@ const DiscoverTracks = () => {
           </>
         ) : (
           <>
-            <p>No more tracks!</p>
+            {recommendedTracks ? (
+              <></>
+            ) : (
+              <>
+                <p>
+                  Enter another track or <button>go back</button>
+                </p>
+              </>
+            )}
           </>
         )}
       </div>

@@ -5,7 +5,7 @@ const SpotifyLoginPage = () => {
 
   return (
     <div className="flex items-center justify-center h-screen flex-col">
-      <p className="text-2xl pb-4">Spotify Login Page</p>
+      <p className="text-2xl pb-4">Login With Spotify</p>
       <button
         onClick={handleSpotifyLogin}
         className="btn bg-spotify hover:bg-spotify-accent text-black"
