@@ -18,7 +18,9 @@ const App = () => {
       ) : (
         <>
           <Navbar />
-          <button onClick={logout}>Log out</button>
+          <button onClick={logout} className="bg-red-500">
+            Log out
+          </button>
           <AppRoutes />
         </>
       )}

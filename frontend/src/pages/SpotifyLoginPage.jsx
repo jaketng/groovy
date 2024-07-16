@@ -6,7 +6,9 @@ const SpotifyLoginPage = () => {
   return (
     <>
       <h1>Spotify Login Page</h1>
-      <button onClick={handleSpotifyLogin}>Login</button>
+      <button onClick={handleSpotifyLogin} className="bg-blue-500">
+        Login
+      </button>
     </>
   );
 };
