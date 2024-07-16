@@ -4,12 +4,16 @@ const SpotifyLoginPage = () => {
   };
 
   return (
-    <>
-      <h1>Spotify Login Page</h1>
-      <button onClick={handleSpotifyLogin} className="bg-blue-500">
+    <div className="flex items-center justify-center h-screen flex-col">
+      <p className="text-2xl pb-4">Spotify Login Page</p>
+      <button
+        onClick={handleSpotifyLogin}
+        className="btn bg-spotify hover:bg-spotify-accent text-black"
+        //className="btn btn-secondary"
+      >
         Login
       </button>
-    </>
+    </div>
   );
 };
 

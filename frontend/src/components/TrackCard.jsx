@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import AudioControls from "./AudioControls";
 import { addToLibrary, checkTrackInLibrary } from "../services/spotifyService";
 
-const TrackCard = ({ track, currentTrack, setCurrentTrack, index }) => {
+const TrackCard = ({
+  track,
+  currentTrack,
+  setCurrentTrack,
+  handleLike,
+  handlePass,
+}) => {
   const [isInLibrary, setIsInLibrary] = useState(false);
   const artistNames = track.artists.map((artist) => artist.name).join(", ");
   const albumImageUrl = track.album.images[0]?.url; // Ensure the track has an album image
@@ -31,27 +37,55 @@ const TrackCard = ({ track, currentTrack, setCurrentTrack, index }) => {
 
   return (
     <>
-      {albumImageUrl && (
-        <img src={albumImageUrl} alt={`${track.name} album cover`} />
-      )}
-      <h2>{track.name}</h2>
-      <h4>{artistNames}</h4>
-      <h4>{index}</h4>
-      <AudioControls
-        track={track}
-        currentTrack={currentTrack}
-        setCurrentTrack={setCurrentTrack}
-      />
-      {spotifyUrl && (
-        <a href={spotifyUrl} target="_blank" rel="noopener noreferrer">
-          <button>Open in Spotify</button>
-        </a>
-      )}
-      {isInLibrary ? (
-        <button disabled>Added to Library</button>
-      ) : (
-        <button onClick={handleAddToLibrary}>Add to User Library</button>
-      )}
+      <div className="card w-96 shadow-xl bg-neutral p-4 text-neutral-content">
+        <div>
+          {albumImageUrl && (
+            <div className="pb-4">
+              <img
+                src={albumImageUrl}
+                alt={`${track.name} album cover`}
+                className="rounded-lg"
+              />
+            </div>
+          )}
+          <div className="border-red-500 border-2">
+            <div className="flex flex-row justify-between border-2 border-orange-500">
+              <div className="gap-2 flex flex-col">
+                <p className="card-title">{track.name}</p>
+                <p>{artistNames}</p>
+              </div>
+              <div>
+                <p>...</p>
+                {/* {spotifyUrl && (
+                  <a
+                    href={spotifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button>Open in Spotify</button>
+                  </a>
+                )}
+                {isInLibrary ? (
+                  <button disabled>Added to Library</button>
+                ) : (
+                  <button onClick={handleAddToLibrary}>
+                    Add to User Library
+                  </button>
+                )} */}
+              </div>
+            </div>
+            <div className="border-2 border-green-500 flex justify-center gap-4">
+              <button onClick={handleLike}>SKIP</button>
+              <AudioControls
+                track={track}
+                currentTrack={currentTrack}
+                setCurrentTrack={setCurrentTrack}
+              />
+              <button onClick={handlePass}>LIKE</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

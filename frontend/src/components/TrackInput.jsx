@@ -31,15 +31,20 @@ const TrackInput = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="gap-4 m-4 flex">
         <input
           type="text"
           name="track-input"
           value={inputUrl}
           onChange={(event) => setInputUrl(event.target.value)}
           placeholder="Enter Spotify track URL"
+          className="input input-bordered input-primary "
         />
-        <input type="submit" value="Find Songs!" />
+        <input
+          className="btn btn-secondary"
+          type="submit"
+          value="Find Songs!"
+        />
       </form>
     </>
   );

@@ -1,21 +1,25 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const Navigation = () => {
+  const navigate = useNavigate();
+
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Input Track</Link>
-        </li>
-        <li>
-          <Link to="/discover-tracks">Discover Tracks</Link>
-        </li>
-        <li>
-          <Link to="/liked-tracks">Liked Tracks</Link>
-        </li>
-      </ul>
-    </nav>
+    <div className="flex flex-row">
+      <button
+        className="flex items-center btn btn-ghost text-lg"
+        onClick={() => navigate("/discover-tracks")}
+      >
+        Discover Tracks
+      </button>
+      <button
+        className="flex items-center btn btn-ghost text-lg"
+        onClick={() => navigate("/liked-tracks")}
+      >
+        Liked Tracks
+      </button>
+    </div>
   );
 };
 
-export default Navbar;
+export default Navigation;

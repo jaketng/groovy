@@ -17,11 +17,19 @@ const App = () => {
         <SpotifyLoginPage />
       ) : (
         <>
-          <Navbar />
-          <button onClick={logout} className="bg-red-500">
-            Log out
-          </button>
-          <AppRoutes />
+          <div className="flex h-fit p-4 justify-between bg-neutral">
+            <Navbar />
+            <button
+              className="btn bg-spotify hover:bg-spotify-accent text-black"
+              onClick={logout}
+            >
+              Log out
+            </button>
+          </div>
+
+          <div className="flex justify-center flex-col">
+            <AppRoutes />
+          </div>
         </>
       )}
     </>

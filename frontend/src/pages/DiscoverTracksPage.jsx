@@ -47,31 +47,33 @@ const DiscoverTracks = () => {
 
   return (
     <>
-      <h1>Discover Tracks</h1>
-      <TrackInput />
-      {console.log(currentTrackIndex)}
-      {console.log(recommendedTracks)}
-      {currentTrack ? (
-        <>
-          <TrackCard
-            track={currentTrack}
-            currentTrack={currentTrack}
-            index={currentTrackIndex}
-          />
-          <button onClick={handlePass}>PASS</button>
-          <button onClick={handleLike}>LIKE</button>
-          {currentTrackIndex > 0 && (
-            <button onClick={handleGoBack}>GO BACK</button>
-          )}
-        </>
-      ) : (
-        <>
-          <p>No more tracks!</p>
-          {currentTrackIndex > 0 && (
-            <button onClick={handleGoBack}>GO BACK</button>
-          )}
-        </>
-      )}
+      <div className="m-auto">
+        <TrackInput />
+        {console.log(currentTrackIndex)}
+        {console.log(recommendedTracks)}
+        {currentTrack ? (
+          <>
+            <TrackCard
+              track={currentTrack}
+              currentTrack={currentTrack}
+              handleLike={handleLike}
+              handlePass={handlePass}
+            />
+            {/* <button onClick={handlePass}>PASS</button>
+          <button onClick={handleLike}>LIKE</button> */}
+            {currentTrackIndex > 0 && (
+              <button onClick={handleGoBack}>GO BACK</button>
+            )}
+          </>
+        ) : (
+          <>
+            <p>No more tracks!</p>
+            {currentTrackIndex > 0 && (
+              <button onClick={handleGoBack}>GO BACK</button>
+            )}
+          </>
+        )}
+      </div>
     </>
   );
 };
