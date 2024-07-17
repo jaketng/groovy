@@ -30,10 +30,11 @@ const TrackInput = () => {
     );
     setRecommendedTracks(recommendedTracks_withPreview);
     navigate("/discover-tracks", { state: { recommendedTracks } });
+    setSearch("");
   };
 
   return (
-    <div className="flex flex-col items-center w-96 ">
+    <div className="flex flex-col items-center w-96">
       <form className="w-full flex flex-col items-center gap-4">
         <input
           type="search"

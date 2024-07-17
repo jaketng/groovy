@@ -1,37 +1,28 @@
 import { useTrack } from "../context/TrackContext.jsx";
-import TrackCard from "../components/TrackCard.jsx";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 const LikedTracksPage = () => {
-  const { state, removeLikedTrack } = useTrack();
+  const { state } = useTrack();
   const likedTracks = state.likedTracks || [];
-  const [currentTrack, setCurrentTrack] = useState(null);
-
-  const handleRemove = (trackId) => {
-    removeLikedTrack(trackId);
-    if (currentTrack?.id === trackId) {
-      setCurrentTrack(null);
-    }
-  };
+  const placeholder = true;
 
   return (
-    <>
-      {likedTracks.length > 0 ? (
-        // Iterate from the last index to the first
-        [...Array(likedTracks.length).keys()].reverse().map((index) => {
-          const track = likedTracks[index];
-          return (
-            <div key={track.id}>
-              <TrackCard
-                currentTrack={currentTrack}
-                setCurrentTrack={setCurrentTrack}
-                track={track}
-              />
-              <button onClick={() => handleRemove(track.id)}>REMOVE</button>
-            </div>
-          );
-        })
+    <div className="flex flex-col justify-center">
+      {placeholder ? (
+        <div
+          className="playlist-container w-full neutral flex justify-center items-center box-border"
+          style={{ height: "calc(100vh - 80px)" }}
+        >
+          <iframe
+            className="w-2/3 h-full"
+            style={{ borderRadius: "12px" }}
+            src="https://open.spotify.com/embed/playlist/3MlarOb8BzfkyaTnMTV7fn?utm_source=generator"
+            frameBorder="0"
+            allowFullScreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          ></iframe>
+        </div>
       ) : (
         <div className="flex flex-col m-auto pt-20">
           <p className="text-3xl">You have no liked tracks!</p>
@@ -40,7 +31,7 @@ const LikedTracksPage = () => {
           </Link>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

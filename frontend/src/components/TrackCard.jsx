@@ -136,13 +136,13 @@ const TrackCard = ({
               </div>
 
               <div className="flex justify-center gap-4">
-                <button onClick={handleLike}>SKIP</button>
+                <button onClick={handlePass}>SKIP</button>
                 <AudioControls
                   track={track}
                   currentTrack={currentTrack}
                   setCurrentTrack={setCurrentTrack}
                 />
-                <button onClick={handlePass}>LIKE</button>
+                <button onClick={handleLike}>LIKE</button>
               </div>
             </div>
           </div>

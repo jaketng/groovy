@@ -270,3 +270,20 @@ export const getSearch = async (query) => {
     return [];
   }
 };
+
+/**
+ * Add a track to a playlist
+ * https://developer.spotify.com/documentation/web-api/reference/add-tracks-to-playlist/
+ * @param {string} playlistId - The ID of the playlist
+ * @param {string} trackUri - The URI of the track to add
+ * @returns {Promise<void>}
+ */
+export const addTrackToPlaylist = async (playlistId, trackUri) => {
+  try {
+    await axios.post(`/playlists/${playlistId}/tracks`, {
+      uris: [trackUri],
+    });
+  } catch (error) {
+    console.error("Error adding track to playlist:", error);
+  }
+};

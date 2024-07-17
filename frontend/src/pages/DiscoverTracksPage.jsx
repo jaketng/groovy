@@ -2,6 +2,7 @@ import TrackInput from "../components/TrackInput";
 import TrackCard from "../components/TrackCard.jsx";
 import { useEffect, useState } from "react";
 import { useTrack } from "../context/TrackContext.jsx";
+import { addTrackToPlaylist } from "../services/spotifyService.js";
 
 const DiscoverTracks = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -24,9 +25,10 @@ const DiscoverTracks = () => {
     setRecommendedTracks(filteredTracks);
   }, []);
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (currentTrack && !likedTracks.includes(currentTrack.id)) {
       addLikedTrack(currentTrack);
+      await addTrackToPlaylist("3MlarOb8BzfkyaTnMTV7fn", currentTrack.uri);
       setCurrentTrackIndex((prevIndex) => prevIndex + 1);
     } else {
       alert("Track already liked");
@@ -46,11 +48,11 @@ const DiscoverTracks = () => {
   };
 
   return (
-    <div className="flex justify-left gap-20 pt-20">
-      <div className="pl-20 pt-2">
+    <div className="relative mt-20 flex w-2/3 m-auto">
+      <div className="w-1/3">
         <TrackInput />
       </div>
-      <div className="">
+      <div className="flex justify-left w-full pl-20">
         {console.log(currentTrackIndex)}
         {console.log(recommendedTracks)}
         {currentTrack ? (
