@@ -9,6 +9,7 @@ import { useTrack } from "../context/TrackContext.jsx";
 const TrackInput = () => {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedTrack, setSelectedTrack] = useState("");
   const navigate = useNavigate();
   const { setRecommendedTracks } = useTrack();
 
@@ -30,6 +31,7 @@ const TrackInput = () => {
     );
     setRecommendedTracks(recommendedTracks_withPreview);
     navigate("/discover-tracks", { state: { recommendedTracks } });
+    setSelectedTrack((trackName) => track.name);
     setSearch("");
   };
 
@@ -44,6 +46,7 @@ const TrackInput = () => {
           className="input input-bordered input-primary w-full"
         />
       </form>
+
       {search && (
         <div className="search-results-container mt-2 w-full h-96 overflow-y-scroll">
           {searchResults.length === 0 ? (
@@ -73,6 +76,13 @@ const TrackInput = () => {
             ))
           )}
         </div>
+      )}
+      {selectedTrack ? (
+        <p className="pt-4 pl-4 w-full">
+          Recommendations based on: {selectedTrack}
+        </p>
+      ) : (
+        <></>
       )}
     </div>
   );
