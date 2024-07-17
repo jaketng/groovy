@@ -46,8 +46,8 @@ const DiscoverTracks = () => {
   };
 
   return (
-    <div className="flex justify-center border-2 gap-20">
-      <div className="">
+    <div className="flex justify-left gap-20 pt-20">
+      <div className="pl-20 pt-2">
         <TrackInput />
       </div>
       <div className="">
