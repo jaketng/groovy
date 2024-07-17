@@ -68,20 +68,16 @@ const DiscoverTracks = () => {
           </>
         ) : (
           <>
-            {currentTrackIndex === 0 ? (
-              <></>
-            ) : (
-              <>
-                <p>
-                  Enter another track or{" "}
-                  <button
-                    className="btn btn-link p-0 m-0 align-baseline"
-                    onClick={handleGoBack}
-                  >
-                    go back
-                  </button>
-                </p>
-              </>
+            {currentTrackIndex !== 0 && (
+              <p>
+                Enter another track or{" "}
+                <button
+                  className="btn btn-link p-0 m-0 align-baseline"
+                  onClick={handleGoBack}
+                >
+                  go back
+                </button>
+              </p>
             )}
           </>
         )}
