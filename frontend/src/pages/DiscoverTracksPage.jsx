@@ -64,10 +64,8 @@ const DiscoverTracks = () => {
           <>
             <TrackCard
               track={currentTrack}
-              currentTrack={currentTrack}
               handleLike={handleLike}
               handlePass={handlePass}
-              currentTrackIndex={currentTrackIndex}
               handleGoBack={handleGoBack}
             />
           </>
