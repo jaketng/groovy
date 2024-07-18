@@ -42,13 +42,13 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
   return (
     <>
       <div className="card w-96 shadow-xl bg-neutral p-4 text-neutral-content">
-        <div>
+        <div className="">
           {albumImageUrl && (
-            <div className="pb-4">
+            <div className="pb-4 h-96">
               <img
                 src={albumImageUrl}
                 alt={`${track.name} album cover`}
-                className="rounded-lg h-auto"
+                className="rounded-lg"
               />
             </div>
           )}
