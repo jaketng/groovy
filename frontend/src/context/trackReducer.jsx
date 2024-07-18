@@ -2,7 +2,8 @@ const ACTIONS = {
   ADD_LIKED_TRACK: "ADD_LIKED_TRACK",
   REMOVE_LIKED_TRACK: "REMOVE_LIKED_TRACK",
   SET_CURRENT_TRACK: "SET_CURRENT_TRACK",
-  SET_RECOMMENDED_TRACKS: "SET_RECOMMENDED_TRCKS",
+  SET_RECOMMENDED_TRACKS: "SET_RECOMMENDED_TRACKS",
+  SET_CURRENT_TRACK_INDEX: "SET_CURRENT_TRACK_INDEX",
 };
 
 const trackReducer = (state, action) => {
@@ -19,12 +20,17 @@ const trackReducer = (state, action) => {
     case ACTIONS.SET_CURRENT_TRACK:
       return {
         ...state,
-        currentTrack: action.payload.track,
+        currentTrack: action.payload,
       };
     case ACTIONS.SET_RECOMMENDED_TRACKS:
       return {
         ...state,
         recommendedTracks: action.payload,
+      };
+    case ACTIONS.SET_CURRENT_TRACK_INDEX:
+      return {
+        ...state,
+        currentTrackIndex: action.payload,
       };
     default:
       return state;

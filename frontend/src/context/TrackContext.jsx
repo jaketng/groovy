@@ -6,6 +6,7 @@ const TrackContext = createContext();
 const initialState = {
   likedTracks: [],
   currentTrack: null,
+  currentTrackIndex: 0,
   recommendedTracks: [],
 };
 
@@ -24,8 +25,12 @@ const TrackProvider = ({ children }) => {
     dispatch({ type: ACTIONS.SET_RECOMMENDED_TRACKS, payload: tracks });
   };
 
-  const updateCurrentTrack = (track) => {
-    dispatch({ type: ACTIONS.SET_CURRENT_TRACK, payload: { track } });
+  const setCurrentTrack = (track) => {
+    dispatch({ type: ACTIONS.SET_CURRENT_TRACK, payload: track });
+  };
+
+  const setCurrentTrackIndex = (index) => {
+    dispatch({ type: ACTIONS.SET_CURRENT_TRACK_INDEX, payload: index });
   };
 
   return (
@@ -34,7 +39,8 @@ const TrackProvider = ({ children }) => {
         state,
         removeLikedTrack,
         addLikedTrack,
-        updateCurrentTrack,
+        setCurrentTrack,
+        setCurrentTrackIndex,
         setRecommendedTracks,
       }}
     >

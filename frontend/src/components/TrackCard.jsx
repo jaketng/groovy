@@ -97,7 +97,7 @@ const TrackCard = ({
                       <button disabled>Added to Library</button>
                     ) : (
                       <button onClick={handleAddToLibrary}>
-                        Add to Your Library
+                        Add to Library
                       </button>
                     )}
                   </li>
