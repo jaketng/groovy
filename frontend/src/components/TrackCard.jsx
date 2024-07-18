@@ -102,14 +102,12 @@ const TrackCard = ({
                     )}
                   </li>
                   <li>
-                    <a>
-                      <a
-                        href={spotifyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <button>Open in Spotify</button>
-                      </a>
+                    <a
+                      href={spotifyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <button>Open in Spotify</button>
                     </a>
                   </li>
                 </ul>
