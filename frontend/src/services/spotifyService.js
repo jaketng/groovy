@@ -287,3 +287,32 @@ export const addTrackToPlaylist = async (playlistId, trackUri) => {
     console.error("Error adding track to playlist:", error);
   }
 };
+
+/**
+ * Fetches the most recently liked track from the user's Spotify library and updates the selected track state.
+ * @param {function} setSelectedTrack - Function to update the selected track state
+ * @returns {void}
+ */
+export const getRecentlyLikedTrack = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.spotify.com/v1/me/tracks?limit=1&offset=0",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (
+      response.data &&
+      response.data.items &&
+      response.data.items.length > 0
+    ) {
+      return response.data.items[0].track;
+    }
+  } catch (error) {
+    console.error("Error fetching recently liked track:", error);
+  }
+};

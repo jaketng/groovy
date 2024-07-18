@@ -11,12 +11,8 @@ const TrackInput = () => {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
-  const {
-    setRecommendedTracks,
-    setSelectedTrack,
-    setCurrentTrackIndex,
-    state: { selectedTrack, currentTrackIndex },
-  } = useTrack();
+  const { setRecommendedTracks, setSelectedTrack, setCurrentTrackIndex } =
+    useTrack();
 
   useEffect(() => {
     const fetchTracks = async () => {
@@ -35,14 +31,14 @@ const TrackInput = () => {
       (track) => track.preview_url !== null
     );
     setRecommendedTracks(recommendedTracks_withPreview);
-    setSelectedTrack(track.name);
+    setSelectedTrack(track);
     setCurrentTrackIndex(0);
-    navigate("/discover-tracks", { state: { recommendedTracks } });
+    navigate("/discover-tracks");
     setSearch("");
   };
 
   return (
-    <div className="flex flex-col items-center w-96">
+    <div className="items-center w-96">
       <form className="w-full flex flex-col items-center gap-4">
         <input
           type="search"
@@ -82,13 +78,6 @@ const TrackInput = () => {
             ))
           )}
         </div>
-      )}
-      {selectedTrack ? (
-        <p className="pt-4 pl-4 w-full">
-          Recommendations based on: {selectedTrack}
-        </p>
-      ) : (
-        <></>
       )}
     </div>
   );

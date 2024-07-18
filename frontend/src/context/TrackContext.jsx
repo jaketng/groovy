@@ -1,5 +1,11 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
+import axios from "axios";
 import { trackReducer, ACTIONS } from "./trackReducer";
+import {
+  getRecsWithPreviewUrls,
+  getRecentlyLikedTrack,
+  getTrackDetails,
+} from "../services/spotifyService";
 
 const TrackContext = createContext();
 
@@ -8,11 +14,51 @@ const initialState = {
   currentTrack: null,
   currentTrackIndex: 0,
   recommendedTracks: [],
-  selectedTrack: null, // New state for selected track
+  selectedTrack: null,
 };
 
 const TrackProvider = ({ children }) => {
   const [state, dispatch] = useReducer(trackReducer, initialState);
+
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        // Check if selected track ID exists in local storage
+        const storedTrackId = localStorage.getItem("selectedTrackId");
+        let selectedTrack = null;
+
+        if (storedTrackId) {
+          // Fetch selected track details from API if ID exists
+          selectedTrack = await getTrackDetails(storedTrackId); // Implement getTrackDetails as per your SpotifyService
+        } else {
+          // Fetch recently liked track
+          const recentlyLikedTrack = await getRecentlyLikedTrack();
+          if (recentlyLikedTrack) {
+            selectedTrack = recentlyLikedTrack;
+            localStorage.setItem("selectedTrackId", selectedTrack.id); // Store selected track ID in local storage
+          }
+        }
+
+        if (selectedTrack) {
+          dispatch({
+            type: ACTIONS.SET_SELECTED_TRACK,
+            payload: selectedTrack,
+          });
+
+          // Fetch recommendations if selected track is set
+          const recTracks = await getRecsWithPreviewUrls(selectedTrack.id);
+          dispatch({
+            type: ACTIONS.SET_RECOMMENDED_TRACKS,
+            payload: recTracks,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching initial data:", error);
+      }
+    };
+
+    fetchInitialData();
+  }, []); // Empty dependency array ensures it runs only once on mount
 
   const addLikedTrack = (track) => {
     dispatch({ type: ACTIONS.ADD_LIKED_TRACK, payload: track });
@@ -35,8 +81,8 @@ const TrackProvider = ({ children }) => {
   };
 
   const setSelectedTrack = (track) => {
-    // Action to set selected track
     dispatch({ type: ACTIONS.SET_SELECTED_TRACK, payload: track });
+    localStorage.setItem("selectedTrackId", track.id); // Update selected track ID in local storage
   };
 
   return (
