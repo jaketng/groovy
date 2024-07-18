@@ -4,6 +4,7 @@ const ACTIONS = {
   SET_CURRENT_TRACK: "SET_CURRENT_TRACK",
   SET_RECOMMENDED_TRACKS: "SET_RECOMMENDED_TRACKS",
   SET_CURRENT_TRACK_INDEX: "SET_CURRENT_TRACK_INDEX",
+  SET_SELECTED_TRACK: "SET_SELECTED_TRACK", // New action type
 };
 
 const trackReducer = (state, action) => {
@@ -31,6 +32,11 @@ const trackReducer = (state, action) => {
       return {
         ...state,
         currentTrackIndex: action.payload,
+      };
+    case ACTIONS.SET_SELECTED_TRACK:
+      return {
+        ...state,
+        selectedTrack: action.payload,
       };
     default:
       return state;

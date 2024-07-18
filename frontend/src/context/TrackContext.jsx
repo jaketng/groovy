@@ -8,6 +8,7 @@ const initialState = {
   currentTrack: null,
   currentTrackIndex: 0,
   recommendedTracks: [],
+  selectedTrack: null, // New state for selected track
 };
 
 const TrackProvider = ({ children }) => {
@@ -33,6 +34,11 @@ const TrackProvider = ({ children }) => {
     dispatch({ type: ACTIONS.SET_CURRENT_TRACK_INDEX, payload: index });
   };
 
+  const setSelectedTrack = (track) => {
+    // Action to set selected track
+    dispatch({ type: ACTIONS.SET_SELECTED_TRACK, payload: track });
+  };
+
   return (
     <TrackContext.Provider
       value={{
@@ -42,6 +48,7 @@ const TrackProvider = ({ children }) => {
         setCurrentTrack,
         setCurrentTrackIndex,
         setRecommendedTracks,
+        setSelectedTrack,
       }}
     >
       {children}
@@ -50,7 +57,11 @@ const TrackProvider = ({ children }) => {
 };
 
 const useTrack = () => {
-  return useContext(TrackContext);
+  const context = useContext(TrackContext);
+  if (!context) {
+    throw new Error("useTrack must be used within a TrackProvider");
+  }
+  return context;
 };
 
 export { TrackProvider, useTrack };

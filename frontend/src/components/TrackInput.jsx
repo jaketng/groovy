@@ -1,3 +1,4 @@
+// TrackInput.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -9,9 +10,13 @@ import { useTrack } from "../context/TrackContext.jsx";
 const TrackInput = () => {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedTrack, setSelectedTrack] = useState("");
   const navigate = useNavigate();
-  const { setRecommendedTracks } = useTrack();
+  const {
+    setRecommendedTracks,
+    setSelectedTrack,
+    setCurrentTrackIndex,
+    state: { selectedTrack, currentTrackIndex },
+  } = useTrack();
 
   useEffect(() => {
     const fetchTracks = async () => {
@@ -30,8 +35,9 @@ const TrackInput = () => {
       (track) => track.preview_url !== null
     );
     setRecommendedTracks(recommendedTracks_withPreview);
+    setSelectedTrack(track.name);
+    setCurrentTrackIndex(0);
     navigate("/discover-tracks", { state: { recommendedTracks } });
-    setSelectedTrack((trackName) => track.name);
     setSearch("");
   };
 
