@@ -2,13 +2,13 @@ import { useTrack } from "../context/TrackContext.jsx";
 import { Link } from "react-router-dom";
 
 const LikedTracksPage = () => {
-  const { state } = useTrack();
-  const likedTracks = state.likedTracks || [];
-  const placeholder = true;
+  const {
+    state: { likedTracks },
+  } = useTrack();
 
   return (
     <div className="flex flex-col justify-center">
-      {placeholder ? (
+      {likedTracks.length > 0 ? (
         <div
           className="playlist-container w-full neutral flex justify-center items-center box-border"
           style={{ height: "calc(100vh - 80px)" }}
