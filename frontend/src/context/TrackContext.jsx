@@ -4,6 +4,7 @@ import {
   getRecsWithPreviewUrls,
   getRecentlyLikedTrack,
   getTrackDetails,
+  accessToken,
 } from "../services/spotifyService";
 
 const TrackContext = createContext();
@@ -56,7 +57,9 @@ const TrackProvider = ({ children }) => {
       }
     };
 
-    fetchInitialData();
+    if (accessToken) {
+      fetchInitialData();
+    }
   }, []); // Empty dependency array ensures it runs only once on mount
 
   const addLikedTrack = (track) => {
