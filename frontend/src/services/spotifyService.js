@@ -7,6 +7,7 @@ export const LOCALSTORAGE_KEYS = {
   expireTime: "spotify_token_expire_time",
   timestamp: "spotify_token_timestamp",
   selectedTrackId: "selected_track_id",
+  lastPlaylistDate: "spotify_last_playlist_date",
 };
 
 // Map to retrieve localStorage values
@@ -17,6 +18,9 @@ const LOCALSTORAGE_VALUES = {
   timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
   selectedTrackId: window.localStorage.getItem(
     LOCALSTORAGE_KEYS.selectedTrackId
+  ),
+  lastPlaylistDate: window.localStorage.getItem(
+    LOCALSTORAGE_KEYS.lastPlaylistDate
   ),
 };
 
@@ -131,12 +135,8 @@ const getAccessToken = () => {
       LOCALSTORAGE_KEYS.expireTime,
       expireTimeFromUrl
     );
-    window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
-    // Return access token from query params
     return accessTokenFromUrl;
   }
-
-  // We should never get here!
   return false;
 };
 
@@ -149,6 +149,77 @@ export const accessToken = getAccessToken();
 axios.defaults.baseURL = "https://api.spotify.com/v1";
 axios.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
 axios.defaults.headers["Content-Type"] = "application/json";
+
+/**
+ * Function to get the user data.
+ * @returns {Promise<Object>} The user data.
+ */
+export const getUserData = async () => {
+  try {
+    const response = await axios.get("/me"); // /me endpoint fetches current user's data
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
+
+/**
+ * Function to get the user's playlists.
+ * @param {string} userId - The user ID.
+ * @returns {Promise<Array>} List of playlists.
+ */
+export const getUserPlaylists = async (userId) => {
+  try {
+    const response = await axios.get(`/users/${userId}/playlists`);
+    return response.data.items; // Return the list of playlists
+  } catch (error) {
+    console.error("Error fetching user playlists:", error);
+    throw error;
+  }
+};
+
+/**
+ * Function to create a daily playlist if it does not already exist.
+ * @returns {Promise<void>}
+ */
+export const createDailyPlaylist = async () => {
+  try {
+    const userData = await getUserData(); // Fetch user data
+    const userId = userData.id; // Get user ID from user data
+    const playlists = await getUserPlaylists(userId); // Get the user's playlists
+
+    const today = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
+    const playlistName = `Groovy ${today}`; // Desired playlist name
+
+    // Log playlists and the desired playlist name
+    console.log("Playlists:", playlists);
+    console.log("Checking for playlist:", playlistName);
+
+    // Check if a playlist for today already exists
+    const playlistExists = playlists.some(
+      (playlist) => playlist.name.trim() === playlistName
+    );
+
+    console.log("Playlist exists:", playlistExists);
+
+    if (!playlistExists) {
+      // Create a new playlist titled "Groovy {today}"
+      const response = await axios.post(`/users/${userId}/playlists`, {
+        name: playlistName,
+        description: "Daily playlist",
+        public: false, // Private playlist
+      });
+
+      if (response.status === 201) {
+        // Store the date of the last created playlist in localStorage
+        window.localStorage.setItem(LOCALSTORAGE_KEYS.lastPlaylistDate, today);
+      }
+    }
+  } catch (error) {
+    console.error("Error creating playlist:", error);
+  }
+};
 
 /**
  * Get recommended tracks

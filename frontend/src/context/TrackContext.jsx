@@ -5,6 +5,8 @@ import {
   getRecentlyLikedTrack,
   getTrackDetails,
   accessToken,
+  createDailyPlaylist,
+  LOCALSTORAGE_KEYS,
 } from "../services/spotifyService";
 
 const TrackContext = createContext();
@@ -58,6 +60,8 @@ const TrackProvider = ({ children }) => {
     };
 
     if (accessToken) {
+      console.log("Hello");
+      createDailyPlaylist();
       fetchInitialData();
     }
   }, []); // Empty dependency array ensures it runs only once on mount
