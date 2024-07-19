@@ -17,6 +17,7 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
   const artistNames = track.artists.map((artist) => artist.name).join(", ");
   const albumImageUrl = track.album.images[0]?.url; // Ensure the track has an album image
   const spotifyUrl = track.external_urls.spotify; // Get the Spotify URL for the track
+  const artistUrl = track.artists[0]?.external_urls.spotify;
 
   // Check if the track is in the library when the component mounts
   useEffect(() => {
@@ -55,11 +56,19 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
           <div>
             <div className="flex flex-row justify-between">
               <div className="gap-2 flex flex-col w-9/12">
-                <p className="text-2xl font-bold whitespace-nowrap overflow-hidden text-ellipsis mr-4">
-                  {track.name}
+                <p className="text-2xl font-bold whitespace-nowrap overflow-hidden text-ellipsis mr-4 hover:underline">
+                  <a
+                    href={spotifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {track.name}
+                  </a>
                 </p>
-                <p className="text-xl whitespace-nowrap overflow-hidden text-ellipsis">
-                  {artistNames}
+                <p className="text-xl whitespace-nowrap overflow-hidden text-ellipsis hover:underline">
+                  <a href={artistUrl} target="_blank" rel="noopener noreferrer">
+                    {artistNames}
+                  </a>
                 </p>
               </div>
 
