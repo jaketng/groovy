@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-import axios from "axios";
 import { trackReducer, ACTIONS } from "./trackReducer";
 import {
   getRecsWithPreviewUrls,
@@ -35,7 +34,7 @@ const TrackProvider = ({ children }) => {
           const recentlyLikedTrack = await getRecentlyLikedTrack();
           if (recentlyLikedTrack) {
             selectedTrack = recentlyLikedTrack;
-            localStorage.setItem("selectedTrackId", selectedTrack.id); // Store selected track ID in local storage
+            localStorage.setItem("selected_track_id", selectedTrack.id); // Store selected track ID in local storage
           }
         }
 
@@ -82,7 +81,7 @@ const TrackProvider = ({ children }) => {
 
   const setSelectedTrack = (track) => {
     dispatch({ type: ACTIONS.SET_SELECTED_TRACK, payload: track });
-    localStorage.setItem("selectedTrackId", track.id); // Update selected track ID in local storage
+    localStorage.setItem("selected_track_id", track.id); // Update selected track ID in local storage
   };
 
   return (
