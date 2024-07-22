@@ -1,10 +1,19 @@
-import { useTrack } from "../context/TrackContext.jsx";
+import React from "react";
+import { useTrack } from "../context/TrackContext";
 import { Link } from "react-router-dom";
 
 const LikedTracksPage = () => {
   const {
     state: { likedTracks },
   } = useTrack();
+
+  // Retrieve the daily playlist ID from local storage
+  const dailyPlaylistId = window.localStorage.getItem("dailyPlaylistId");
+
+  // Construct the playlist URL if the daily playlist ID is available
+  const playlistUrl = dailyPlaylistId
+    ? `https://open.spotify.com/embed/playlist/${dailyPlaylistId}?utm_source=generator`
+    : null;
 
   return (
     <div className="flex flex-col justify-center">
@@ -13,15 +22,18 @@ const LikedTracksPage = () => {
           className="playlist-container w-full neutral flex justify-center items-center box-border"
           style={{ height: "calc(100vh - 80px)" }}
         >
-          <iframe
-            className="w-2/3 h-full"
-            style={{ borderRadius: "12px" }}
-            src="https://open.spotify.com/embed/playlist/3MlarOb8BzfkyaTnMTV7fn?utm_source=generator"
-            frameBorder="0"
-            allowFullScreen="true"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-          ></iframe>
+          {playlistUrl ? (
+            <iframe
+              className="w-2/3 h-full"
+              style={{ borderRadius: "12px" }}
+              src={playlistUrl}
+              frameBorder="0"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          ) : (
+            <p>Loading playlist...</p>
+          )}
         </div>
       ) : (
         <div className="flex flex-col m-auto pt-20">

@@ -8,6 +8,7 @@ export const LOCALSTORAGE_KEYS = {
   timestamp: "spotify_token_timestamp",
   selectedTrackId: "selected_track_id",
   lastPlaylistDate: "spotify_last_playlist_date",
+  dailyPlaylistId: "dailyPlaylistId",
 };
 
 // Map to retrieve localStorage values
@@ -21,6 +22,9 @@ const LOCALSTORAGE_VALUES = {
   ),
   lastPlaylistDate: window.localStorage.getItem(
     LOCALSTORAGE_KEYS.lastPlaylistDate
+  ),
+  dailyPlaylistId: window.localStorage.getItem(
+    LOCALSTORAGE_KEYS.dailyPlaylistId
   ),
 };
 
@@ -197,13 +201,19 @@ export const createDailyPlaylist = async () => {
     console.log("Checking for playlist:", playlistName);
 
     // Check if a playlist for today already exists
-    const playlistExists = playlists.some(
+    const existingPlaylist = playlists.find(
       (playlist) => playlist.name.trim() === playlistName
     );
 
-    console.log("Playlist exists:", playlistExists);
-
-    if (!playlistExists) {
+    if (existingPlaylist) {
+      console.log("Playlist already exists:", playlistName);
+      // Store the existing playlist ID in localStorage
+      window.localStorage.setItem(
+        LOCALSTORAGE_KEYS.dailyPlaylistId,
+        existingPlaylist.id
+      );
+      return existingPlaylist.id; // Return the existing playlist ID
+    } else {
       // Create a new playlist titled "Groovy {today}"
       const response = await axios.post(`/users/${userId}/playlists`, {
         name: playlistName,
@@ -212,13 +222,23 @@ export const createDailyPlaylist = async () => {
       });
 
       if (response.status === 201) {
-        // Store the date of the last created playlist in localStorage
+        const newPlaylistId = response.data.id; // Get the new playlist ID
+
+        // Store the date of the last created playlist and the playlist ID in localStorage
         window.localStorage.setItem(LOCALSTORAGE_KEYS.lastPlaylistDate, today);
+        window.localStorage.setItem(
+          LOCALSTORAGE_KEYS.dailyPlaylistId,
+          newPlaylistId
+        );
+
+        console.log("Created new playlist ID:", newPlaylistId);
+        return newPlaylistId; // Return the new playlist ID
       }
     }
   } catch (error) {
     console.error("Error creating playlist:", error);
   }
+  return null; // Return null if there was an error
 };
 
 /**

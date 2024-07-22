@@ -15,6 +15,7 @@ const DiscoverTracks = () => {
   } = useTrack();
   const { recommendedTracks, likedTracks, currentTrackIndex, currentTrack } =
     state;
+  const dailyPlaylistId = window.localStorage.getItem("dailyPlaylistId");
 
   useEffect(() => {
     if (recommendedTracks.length > 0) {
@@ -34,7 +35,7 @@ const DiscoverTracks = () => {
   const handleLike = async () => {
     if (currentTrack && !likedTracks.includes(currentTrack.id)) {
       addLikedTrack(currentTrack);
-      await addTrackToPlaylist("3MlarOb8BzfkyaTnMTV7fn", currentTrack.uri);
+      await addTrackToPlaylist(dailyPlaylistId, currentTrack.uri);
       setCurrentTrackIndex(currentTrackIndex + 1);
     } else {
       alert("Track already liked");
