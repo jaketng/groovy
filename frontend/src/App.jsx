@@ -16,21 +16,18 @@ const App = () => {
       {!token ? (
         <SpotifyLoginPage />
       ) : (
-        <>
-          <div className="flex h-fit p-4 justify-between bg-neutral">
-            <Navbar />
-            <button
-              className="btn bg-spotify hover:bg-spotify-accent text-black"
-              onClick={logout}
-            >
-              Log out
-            </button>
-          </div>
+        <div className="h-[100svh] w-[100svw] overflow-hidden">
+          <button
+            className="btn bg-spotify hover:bg-spotify-accent text-black fixed"
+            onClick={logout}
+          >
+            Log out
+          </button>
 
-          <div className="flex justify-center flex-col">
-            <AppRoutes />
-          </div>
-        </>
+          <AppRoutes />
+
+          <Navbar />
+        </div>
       )}
     </>
   );

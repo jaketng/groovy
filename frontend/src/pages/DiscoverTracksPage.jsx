@@ -55,11 +55,11 @@ const DiscoverTracks = () => {
   };
 
   return (
-    <div className="flex justify-between w-full pt-20">
-      <div className="w-1/3 pl-20 pr-20 pt-2">
+    <div className="flex flex-col">
+      <div className="w-full flex justify-center py-12 z-50">
         <TrackInput />
       </div>
-      <div className="w-1/3 flex justify-center">
+      <div className="w-full flex justify-center">
         {currentTrack ? (
           <TrackCard
             track={currentTrack}
@@ -83,9 +83,9 @@ const DiscoverTracks = () => {
           </>
         )}
       </div>
-      <div className="w-1/3">
+      {/* <div className="w-1/3">
         <SelectedTrackCard />
-      </div>
+      </div> */}
     </div>
   );
 };

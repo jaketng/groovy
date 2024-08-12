@@ -42,10 +42,10 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
 
   return (
     <>
-      <div className="card w-96 shadow-xl bg-neutral p-4 text-neutral-content">
+      <div className="card w-11/12 h-1/2 bg-neutral p-4 text-neutral-content">
         <div className="">
           {albumImageUrl && (
-            <div className="pb-4 h-96">
+            <div className="pb-4 h-72 overflow-hidden">
               <img
                 src={albumImageUrl}
                 alt={`${track.name} album cover`}
@@ -54,7 +54,7 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
             </div>
           )}
           <div>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between pt-2">
               <div className="gap-2 flex flex-col w-9/12">
                 <p className="text-2xl font-bold whitespace-nowrap overflow-hidden text-ellipsis mr-4 hover:underline">
                   <a

@@ -38,7 +38,7 @@ const TrackInput = () => {
   };
 
   return (
-    <div className="items-center w-96">
+    <div className="items-center w-80">
       <form className="w-full flex flex-col items-center gap-4">
         <input
           type="search"
