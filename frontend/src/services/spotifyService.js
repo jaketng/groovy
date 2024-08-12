@@ -196,17 +196,12 @@ export const createDailyPlaylist = async () => {
     const today = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
     const playlistName = `Groovy ${today}`; // Desired playlist name
 
-    // Log playlists and the desired playlist name
-    console.log("Playlists:", playlists);
-    console.log("Checking for playlist:", playlistName);
-
     // Check if a playlist for today already exists
     const existingPlaylist = playlists.find(
       (playlist) => playlist.name.trim() === playlistName
     );
 
     if (existingPlaylist) {
-      console.log("Playlist already exists:", playlistName);
       // Store the existing playlist ID in localStorage
       window.localStorage.setItem(
         LOCALSTORAGE_KEYS.dailyPlaylistId,

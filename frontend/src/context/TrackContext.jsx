@@ -6,7 +6,6 @@ import {
   getTrackDetails,
   accessToken,
   createDailyPlaylist,
-  LOCALSTORAGE_KEYS,
 } from "../services/spotifyService";
 
 const TrackContext = createContext();
@@ -60,7 +59,6 @@ const TrackProvider = ({ children }) => {
     };
 
     if (accessToken) {
-      console.log("Hello");
       createDailyPlaylist();
       fetchInitialData();
     }
