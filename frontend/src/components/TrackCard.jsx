@@ -42,14 +42,14 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
 
   return (
     <>
-      <div className="card w-11/12 h-1/2 bg-neutral p-4 text-neutral-content">
-        <div className="">
+      <div className="card w-11/12 max-w-96 h-full max-h-[550px] overflow-hidden bg-neutral p-4 text-neutral-content">
+        <div className="flex flex-col h-full">
           {albumImageUrl && (
-            <div className="pb-4 h-72 overflow-hidden">
+            <div className="pb-4 flex-grow flex items-center justify-center">
               <img
                 src={albumImageUrl}
                 alt={`${track.name} album cover`}
-                className="rounded-lg"
+                className="w-full h-full object-contain"
               />
             </div>
           )}

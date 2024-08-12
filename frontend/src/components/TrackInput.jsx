@@ -38,7 +38,7 @@ const TrackInput = () => {
   };
 
   return (
-    <div className="items-center w-80">
+    <div className="relative items-center max-w-96 w-11/12">
       <form className="w-full flex flex-col items-center gap-4">
         <input
           type="search"
@@ -50,7 +50,7 @@ const TrackInput = () => {
       </form>
 
       {search && (
-        <div className="search-results-container mt-2 w-full h-96 overflow-y-scroll">
+        <div className="search-results-container absolute mt-2 w-full h-96 overflow-y-scroll z-10 bg-base-100">
           {searchResults.length === 0 ? (
             <p className="text-center text-gray-600 py-4">No tracks found</p>
           ) : (

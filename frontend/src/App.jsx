@@ -17,12 +17,12 @@ const App = () => {
         <SpotifyLoginPage />
       ) : (
         <div className="h-[100svh] w-[100svw] overflow-hidden">
-          <button
-            className="btn bg-spotify hover:bg-spotify-accent text-black fixed"
+          {/* <button
+            className="btn bg-spotify hover:bg-spotify-accent text-black"
             onClick={logout}
           >
             Log out
-          </button>
+          </button> */}
 
           <AppRoutes />
 

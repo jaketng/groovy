@@ -17,7 +17,7 @@ const LikedTracksPage = () => {
 
   return (
     <div
-      className="flex flex-col justify-center w-[100svw] h-[calc(100svh-112px)]"
+      className="flex flex-col justify-center w-[100svw] h-[calc(100svh-96px)]"
       style={{ backgroundColor: "#242424" }}
     >
       {likedTracks.length > 0 ? (

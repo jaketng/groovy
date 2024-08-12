@@ -6,7 +6,7 @@ const Navigation = () => {
   const location = useLocation();
 
   return (
-    <div className="bg-neutral fixed bottom-0 left-0 w-[100svw] h-28 flex">
+    <div className="bg-neutral fixed bottom-0 left-0 w-[100svw] h-24 flex">
       <button
         className={`w-1/2 h-full rounded-none btn btn-ghost text-xl ${
           location.pathname === "/discover-tracks"
