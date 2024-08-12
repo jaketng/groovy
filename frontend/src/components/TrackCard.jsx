@@ -71,46 +71,6 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
                   </a>
                 </p>
               </div>
-
-              <div className="dropdown dropdown-right">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="flex flex-col transition-transform transform hover:scale-105"
-                >
-                  <div className="fill-neutral-content w-5 ml-auto pb-0 dropdown dropdown-right">
-                    <EllipsisIcon />
-                  </div>
-
-                  <div className="w-12 fill-primary mr-4 -mt-2">
-                    <SpotifyIcon />
-                  </div>
-                </div>
-
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu bg-gray-800 rounded-r-lg z-[1] w-max p-2 ml-4 no-animation"
-                >
-                  <li>
-                    {isInLibrary ? (
-                      <button disabled>Added to Library</button>
-                    ) : (
-                      <button onClick={handleAddToLibrary}>
-                        Add to Library
-                      </button>
-                    )}
-                  </li>
-                  <li>
-                    <a
-                      href={spotifyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <button>Open in Spotify</button>
-                    </a>
-                  </li>
-                </ul>
-              </div>
             </div>
 
             <div className="relative mt-4">
@@ -125,7 +85,7 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
                 </button>
               </div>
 
-              <div className="flex justify-center gap-4">
+              <div className="flex justify-center gap-6">
                 <button onClick={handlePass}>SKIP</button>
                 <AudioControls />
                 <button onClick={handleLike}>LIKE</button>

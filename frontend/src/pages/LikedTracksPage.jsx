@@ -20,7 +20,7 @@ const LikedTracksPage = () => {
       className="flex flex-col justify-center w-[100svw] h-[calc(100svh-96px)]"
       style={{ backgroundColor: "#242424" }}
     >
-      {likedTracks.length > 0 ? (
+      {playlistUrl ? (
         <div className="playlist-container w-full h-full neutral flex justify-center items-center box-border">
           {playlistUrl ? (
             <iframe
