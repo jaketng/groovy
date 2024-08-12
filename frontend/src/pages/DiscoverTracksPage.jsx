@@ -60,7 +60,7 @@ const DiscoverTracks = () => {
         <div className="w-full flex justify-center pt-8">
           <TrackInput />
         </div>
-        <div className="pl-4">
+        <div className="pl-6 flex justify-center pt-4">
           <SelectedTrackCard />
         </div>
       </div>

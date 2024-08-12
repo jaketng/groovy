@@ -8,8 +8,8 @@ const SelectedTrackCard = () => {
   return (
     <>
       {selectedTrack ? (
-        <p className="pt-4 pl-4 w-full">
-          Recommendations based on: {selectedTrack.name}
+        <p className="w-11/12 max-w-96 whitespace-nowrap overflow-hidden text-ellipsis">
+          Recommended on: {selectedTrack.name}
         </p>
       ) : null}
     </>
