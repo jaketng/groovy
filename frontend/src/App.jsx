@@ -2,7 +2,7 @@ import Navbar from "./components/Navbar.jsx";
 import AppRoutes from "./routes/Routes.jsx";
 import SpotifyLoginPage from "./pages/SpotifyLoginPage.jsx";
 import { useState, useEffect } from "react";
-import { accessToken, logout } from "./services/spotifyService.js";
+import { accessToken } from "./services/spotifyService.js";
 
 const App = () => {
   const [token, setToken] = useState(null);
@@ -17,15 +17,7 @@ const App = () => {
         <SpotifyLoginPage />
       ) : (
         <div className="h-[100svh] w-[100svw] overflow-hidden">
-          {/* <button
-            className="btn bg-spotify hover:bg-spotify-accent text-black"
-            onClick={logout}
-          >
-            Log out
-          </button> */}
-
           <AppRoutes />
-
           <Navbar />
         </div>
       )}

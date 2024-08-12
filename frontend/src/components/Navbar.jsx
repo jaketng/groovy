@@ -8,7 +8,15 @@ const Navigation = () => {
   return (
     <div className="bg-neutral fixed bottom-0 left-0 w-[100svw] h-24 flex">
       <button
-        className={`w-1/2 h-full rounded-none btn btn-ghost text-xl ${
+        className={`w-1/3 h-full rounded-none btn btn-ghost text-xl ${
+          location.pathname === "/profile" ? "font-bold" : "bg-neutral-focus"
+        }`}
+        onClick={() => navigate("/profile")}
+      >
+        Profile
+      </button>
+      <button
+        className={`w-1/3 h-full rounded-none btn btn-ghost text-xl ${
           location.pathname === "/discover-tracks"
             ? "font-bold"
             : "bg-neutral-focus"
@@ -18,7 +26,7 @@ const Navigation = () => {
         Discover Tracks
       </button>
       <button
-        className={`w-1/2 h-full rounded-none btn btn-ghost text-xl ${
+        className={`w-1/3 h-full rounded-none btn btn-ghost text-xl ${
           location.pathname === "/liked-tracks"
             ? "font-bold"
             : "bg-neutral-focus"
@@ -27,6 +35,7 @@ const Navigation = () => {
       >
         Liked Tracks
       </button>
+      \
     </div>
   );
 };
