@@ -1,5 +1,11 @@
+// src/components/Navigation.js
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import {
+  ProfileIcon,
+  SearchIcon,
+  LikedTracksIcon,
+} from "../assets/ComponentIcons";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -8,34 +14,33 @@ const Navigation = () => {
   return (
     <div className="bg-neutral fixed bottom-0 left-0 w-[100svw] h-24 flex">
       <button
-        className={`w-1/3 h-full rounded-none btn btn-ghost text-xl ${
+        className={`w-1/3 h-full flex flex-col items-center justify-center rounded-none btn btn-ghost ${
           location.pathname === "/profile" ? "font-bold" : "bg-neutral-focus"
         }`}
         onClick={() => navigate("/profile")}
       >
-        Profile
+        <ProfileIcon />
       </button>
       <button
-        className={`w-1/3 h-full rounded-none btn btn-ghost text-xl ${
+        className={`w-1/3 h-full flex flex-col items-center justify-center rounded-none btn btn-ghost ${
           location.pathname === "/discover-tracks"
             ? "font-bold"
             : "bg-neutral-focus"
         }`}
         onClick={() => navigate("/discover-tracks")}
       >
-        Discover Tracks
+        <SearchIcon />
       </button>
       <button
-        className={`w-1/3 h-full rounded-none btn btn-ghost text-xl ${
+        className={`w-1/3 h-full flex flex-col items-center justify-center rounded-none btn btn-ghost ${
           location.pathname === "/liked-tracks"
             ? "font-bold"
             : "bg-neutral-focus"
         }`}
         onClick={() => navigate("/liked-tracks")}
       >
-        Liked Tracks
+        <LikedTracksIcon />
       </button>
-      \
     </div>
   );
 };
