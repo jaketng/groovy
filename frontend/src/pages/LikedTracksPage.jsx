@@ -1,26 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTrack } from "../context/TrackContext";
 import { Link } from "react-router-dom";
+import { getPlaylistUrlIfNotEmpty } from "../services/spotifyService"; // Import the service
 
 const LikedTracksPage = () => {
   const {
     state: { likedTracks },
   } = useTrack();
 
-  // Retrieve the daily playlist ID from local storage
-  const dailyPlaylistId = window.localStorage.getItem("dailyPlaylistId");
+  const [playlistUrl, setPlaylistUrl] = useState(null);
+  const [isPlaylistEmpty, setIsPlaylistEmpty] = useState(true);
+  const [loading, setLoading] = useState(true); // Add loading state
 
-  // Construct the playlist URL if the daily playlist ID is available
-  const playlistUrl = dailyPlaylistId
-    ? `https://open.spotify.com/embed/playlist/${dailyPlaylistId}?utm_source=generator&theme=0`
-    : null;
+  useEffect(() => {
+    const fetchPlaylist = async () => {
+      setLoading(true); // Start loading
+
+      const url = await getPlaylistUrlIfNotEmpty();
+      if (url) {
+        setPlaylistUrl(url);
+        setIsPlaylistEmpty(false);
+      } else {
+        setIsPlaylistEmpty(true);
+      }
+
+      setLoading(false); // Stop loading
+    };
+
+    fetchPlaylist();
+  }, []);
+
+  if (loading) {
+    return (
+      <div
+        className="flex flex-col justify-center w-[100svw] h-[calc(100svh-96px)]"
+        style={{ backgroundColor: "#242424" }}
+      >
+        <p className="text-xl text-white m-auto">Loading...</p>{" "}
+        {/* Loading indicator */}
+      </div>
+    );
+  }
 
   return (
     <div
       className="flex flex-col justify-center w-[100svw] h-[calc(100svh-96px)]"
       style={{ backgroundColor: "#242424" }}
     >
-      {playlistUrl ? (
+      {!isPlaylistEmpty ? (
         <div className="playlist-container w-full h-full neutral flex justify-center items-center box-border">
           {playlistUrl ? (
             <iframe
@@ -32,7 +59,7 @@ const LikedTracksPage = () => {
               loading="lazy"
             ></iframe>
           ) : (
-            <p>Loading playlist...</p>
+            <p className="m-auto">Loading playlist...</p>
           )}
         </div>
       ) : (

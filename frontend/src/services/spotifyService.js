@@ -406,3 +406,31 @@ export const getRecentlyLikedTrack = async () => {
     console.error("Error fetching recently liked track:", error);
   }
 };
+
+/**
+ * Get the playlist URL if it's not empty
+ * @returns {Promise<string|null>} Playlist URL or null if empty
+ */
+export const getPlaylistUrlIfNotEmpty = async () => {
+  const dailyPlaylistId = window.localStorage.getItem(
+    LOCALSTORAGE_KEYS.dailyPlaylistId
+  );
+
+  if (!dailyPlaylistId) {
+    return null;
+  }
+
+  try {
+    // Check if the playlist has tracks
+    const { data } = await axios.get(
+      `https://api.spotify.com/v1/playlists/${dailyPlaylistId}/tracks`
+    );
+    if (data.items.length > 0) {
+      return `https://open.spotify.com/embed/playlist/${dailyPlaylistId}?utm_source=generator&theme=0`;
+    }
+  } catch (error) {
+    console.error("Error fetching playlist tracks:", error);
+  }
+
+  return null;
+};
