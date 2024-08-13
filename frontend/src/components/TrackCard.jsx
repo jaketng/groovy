@@ -45,17 +45,17 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
       <div className="card w-11/12 max-w-96 h-full max-h-[550px] overflow-hidden bg-neutral p-4 text-neutral-content">
         <div className="flex flex-col h-full">
           {albumImageUrl && (
-            <div className="pb-4 flex-grow flex items-center justify-center">
+            <div className="pb-4 pt-4 items-center h-2/3 flex justify-center overflow-hidden">
               <img
                 src={albumImageUrl}
                 alt={`${track.name} album cover`}
-                className="w-full h-full object-contain"
+                className="object-cover max-h-full max-w-full"
               />
             </div>
           )}
           <div>
-            <div className="flex flex-row justify-between pt-2">
-              <div className="gap-2 flex flex-col w-9/12">
+            <div className="flex flex-row justify-between pt-2 pl-6">
+              <div className="gap-2 flex flex-col w-full">
                 <p className="text-2xl font-bold whitespace-nowrap overflow-hidden text-ellipsis mr-4 hover:underline">
                   <a
                     href={spotifyUrl}
