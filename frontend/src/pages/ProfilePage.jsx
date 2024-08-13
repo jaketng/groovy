@@ -20,7 +20,12 @@ export const ProfilePage = () => {
     fetchUserData();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <p className="flex flex-col justify-center items-center w-[100svw] h-[calc(100svh-96px)] text-xl">
+        Loading...
+      </p>
+    );
 
   if (!userData) return <p>Failed to load user data.</p>;
 

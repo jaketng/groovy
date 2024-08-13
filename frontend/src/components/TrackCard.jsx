@@ -54,7 +54,7 @@ const TrackCard = ({ handleLike, handlePass, handleGoBack }) => {
             </div>
           )}
           <div>
-            <div className="flex flex-row justify-between pt-2 pl-6">
+            <div className="flex flex-row justify-between pt-2 pl-4">
               <div className="gap-2 flex flex-col w-full">
                 <p className="text-2xl font-bold whitespace-nowrap overflow-hidden text-ellipsis mr-4 hover:underline">
                   <a
